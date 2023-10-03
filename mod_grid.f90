@@ -41,7 +41,7 @@ contains
 		do concurrent (i=1:self%sizes(1))
 			do concurrent (j=1:self%sizes(2))
 				do concurrent(k=1:self%sizes(3))
-					self%points(i,j,k)%data = model%update(self%points(i,j,k)%data)
+					self%points(i,j,k)%data = model%update_func(model,self%points(i,j,k)%data)
 				end do
 			end do
 		end do

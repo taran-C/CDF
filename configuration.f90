@@ -23,7 +23,6 @@ contains
 		type(t_config) :: config
 		type(t_model) :: model
 
-		real, parameter :: sigma = 10., rho = 28., beta = 8./3.
 		!stable starting point
 		!real, parameter :: x0 = (-sqrt(beta*(rho-1.))), y0 = (-sqrt(beta*(rho-1.))), z0 = (rho-1.)
 		integer :: i,j,k
@@ -36,7 +35,7 @@ contains
 
 		config%steps = 10000
 
-		model = t_model([sigma,rho,beta], 0.01)
+		model = get_model_lorenz()
 
 		!grid_init
 		do i=1, grid_sizes(1)
