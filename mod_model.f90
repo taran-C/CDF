@@ -10,6 +10,7 @@ module mod_model
 
 contains
 
+	!Lorenz model
 	function get_model_lorenz() result(model)
 		type(t_model) :: model
 		real, parameter :: sigma = 10., rho = 28., beta = 8./3., delta_t = 0.01
