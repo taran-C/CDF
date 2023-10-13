@@ -8,7 +8,6 @@ module mod_grid
 		integer :: varnum
 		integer :: sizes(3)
 	contains
-		procedure, pass(self) :: print_to_file
 		procedure, pass(self) :: grid_step
 	end type
 
@@ -40,57 +39,10 @@ contains
 			do concurrent (j=1:self%sizes(2))
 				do concurrent(k=1:self%sizes(3))
 					self%data(:,i,j,k) = model%update_func(model,self%data,i,j,k,self%varnum,self%sizes)
-					! self%data(1,i,j,k) = res(1)
-					! self%data(2,i,j,k) = res(2)
-					! self%data(3,i,j,k) = res(3)
 				end do
 			end do
 		end do
 	
 	end subroutine grid_step
-
-	subroutine print_to_file(self, nc_file)
-
-		class(t_grid), intent(in) :: self
-
-		!integer, intent(in):: file
-
-		!integer :: i,j,k
-
-		! write(file, '(A)', advance="no") '['
-		! do i=1, self%sizes(1)
-
-		! 	write(file, '(A)', advance="no") '['
-		! 	do j=1, self%sizes(2)
-
-		! 		write(file, '(A)', advance="no") '['
-		! 		do k=1, self%sizes(3)
-
-		! 			write(file, '(A)', advance="no") '['
-		! 			write(file, '(F10.5 , A, F10.5 , A, F10.5)', advance='no') self%points(i,j,k)%data(1), ',', &
-		! 					self%points(i,j,k)%data(2), ',', self%points(i,j,k)%data(3)
-		! 			if (k<self%sizes(3)) then
-		! 				write(file, '(A)', advance="no") '],'
-		! 			else
-		! 				write(file, '(A)', advance="no") ']'
-		! 			end if
-		! 		end do
-		! 		if (j<self%sizes(2)) then
-		! 			write(file, '(A)', advance="no") '],'
-		! 		else
-		! 			write(file, '(A)', advance="no") ']'
-		! 		end if
-
-		! 	end do
-		! 	if (i<self%sizes(1)) then
-		! 		write(file, '(A)', advance="no") '],'
-		! 	else
-		! 		write(file, '(A)', advance="no") ']'
-		! 	end if
-
-		! end do
-		!write(file, *) ']' !newline
-
-	end subroutine print_to_file
 
 end module mod_grid

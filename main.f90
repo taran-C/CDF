@@ -8,7 +8,8 @@ program main
 
 	type(t_config) :: conf
 	type(t_nc_file) :: nc_file
-	conf = t_config([3,3,3])
+
+	conf = parse_arguments()
 
 	nc_file = create_nc(conf)
 

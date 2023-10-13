@@ -5,6 +5,8 @@ module configuration
 
 	implicit none
 
+	integer :: DEFAULT_STEPS = 1000
+
 	type :: t_config
 	!Type containing the different parts of our data (model, initial conditions grid...) as well as run specific data (number of steps...)
 		type(t_model):: model
@@ -36,7 +38,7 @@ contains
 
 		init = t_grid(grid_sizes)
 
-		config%steps = 10000
+		config%steps = DEFAULT_STEPS
 
 		model = get_model_lorenz()
 
