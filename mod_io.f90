@@ -38,12 +38,19 @@ contains
 	                i = i+1
 	                conf%steps = int_val
 
+	            case ('-o', '--out')
+	            	call get_command_argument(i+1, arg)
+	            	conf%file_name = arg
+	            	i=i+1
+
 	            case ('-h', '--help')
 	                call print_help()
+	                stop
 
 	            case default
 	                print '(2a, /)', 'unrecognised command-line option: ', arg
 	                call print_help()
+	                stop
 	        end select
 	        i=i+1
 	    end do
@@ -54,6 +61,7 @@ contains
 
 		print '(a, /)', 'command-line options:'
         print '(a)',    '  -s, --steps       number of time steps to integrate'
+        print '(a)',    '  -o, --out         file name for the output file (*.nc)'
         print '(a, /)', '  -h, --help        print usage information and exit'
 
 	end subroutine print_help
