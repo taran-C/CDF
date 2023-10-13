@@ -1,26 +1,19 @@
 import numpy as np
-import json
+#import json
 import matplotlib.pyplot as plt
+from netCDF4 import Dataset
 
-input_file = "res.txt"
+input_file = "a.nc"
 
-# data = np.array([line.rstrip().split() for line in open(input_file).readlines()])
+nc_file = Dataset(input_file, "r")
 
-# data = data.astype(np.float)
-
-# ax = plt.axes(projection='3d')
-
-# ax.plot(*data.T, lw = 0.5)
-
-# plt.show()
-
-data = np.array([json.loads(line) for line in open(input_file).readlines()])
-
-my_data = data[:,0,2,1,:]
+x = nc_file.variables["x(t)"][:,1,1,1]
+y = nc_file.variables["y(t)"][:,1,1,1]
+z = nc_file.variables["z(t)"][:,1,1,1]
 
 ax = plt.axes(projection='3d')
 
-ax.plot(*my_data.T, lw = 0.5)
+ax.plot(x,y,z, lw = 0.5)
 
 plt.show()
 

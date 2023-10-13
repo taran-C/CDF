@@ -10,6 +10,9 @@ module configuration
 		type(t_model):: model
 		type(t_grid):: init
 		integer :: steps
+		character (len = 100):: file_name
+		integer :: ncid
+		integer, allocatable :: ncvars
 	end type
 
 	interface t_config
@@ -42,9 +45,9 @@ contains
 			do j=1, grid_sizes(2)
 				do k=1, grid_sizes(3)
 
-					init%points(i,j,k) = t_grid_point([min_coord+(max_coord-min_coord)*(real(i)/real(grid_sizes(1))), &
-							min_coord+(max_coord-min_coord)*(real(j)/real(grid_sizes(2))), &
-							min_coord+(max_coord-min_coord)*(real(k)/real(grid_sizes(3)))])
+					init%data(1,i,j,k) = min_coord+(max_coord-min_coord)*(real(i)/real(grid_sizes(1)))
+					init%data(2,i,j,k) = min_coord+(max_coord-min_coord)*(real(j)/real(grid_sizes(2)))
+					init%data(3,i,j,k) = min_coord+(max_coord-min_coord)*(real(k)/real(grid_sizes(3)))
 
 				end do
 			end do
@@ -52,6 +55,7 @@ contains
 
 		config%model = model
 		config%init = init
+		config%file_name = "a.nc"
 
 	end function config_constructor
 

@@ -1,15 +1,15 @@
 FC = gfortran
 
-OBJS = mod_model.o mod_grid.o configuration.o main_loop.o main.o
+OBJS = mod_model.o mod_grid.o configuration.o mod_IO.o main_loop.o main.o
 PROG = lorenz
 
 all: $(PROG)
 
 $(PROG): $(OBJS)
-	gfortran -o $@ $^
+	gfortran -o $@ $^ `pkg-config --cflags --libs netcdf-fortran`
 
 $(OBJS): %.o: %.f90
-	gfortran -c -o $@ $<
+	gfortran -c -o $@ $< `pkg-config --cflags --libs netcdf-fortran`
 
 clean:
 	rm -f *.o *.mod
