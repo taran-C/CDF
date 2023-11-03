@@ -13,6 +13,59 @@ module mod_io
 
 contains
 
+	function parse_arguments() result(conf)
+
+		type(t_config) :: conf
+		character(len = 32) :: arg
+		integer :: i
+		integer :: stat
+		integer :: int_val
+
+		conf = t_config([3,3,3])
+
+		i = 1
+	    do while (i <= command_argument_count())
+	        call get_command_argument(i, arg)
+
+	        select case (arg)
+	            case ('-s', '--steps')
+	            	call get_command_argument(i+1, arg)
+	            	read(arg,*,iostat=stat) int_val
+	                if (stat /= 0) then
+	                	print *, "arg error"
+	                	error stop
+	                end if
+	                i = i+1
+	                conf%steps = int_val
+
+	            case ('-o', '--out')
+	            	call get_command_argument(i+1, arg)
+	            	conf%file_name = arg
+	            	i=i+1
+
+	            case ('-h', '--help')
+	                call print_help()
+	                stop
+
+	            case default
+	                print '(2a, /)', 'unrecognised command-line option: ', arg
+	                call print_help()
+	                stop
+	        end select
+	        i=i+1
+	    end do
+
+	end function parse_arguments
+
+	subroutine print_help()
+
+		print '(a, /)', 'command-line options:'
+        print '(a)',    '  -s, --steps       number of time steps to integrate'
+        print '(a)',    '  -o, --out         file name for the output file (*.nc)'
+        print '(a, /)', '  -h, --help        print usage information and exit'
+
+	end subroutine print_help
+
 	function create_nc(config) result(nc_file)
 
 		type(t_config) :: config

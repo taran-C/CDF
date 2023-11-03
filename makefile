@@ -1,6 +1,6 @@
 FC = gfortran
 
-OBJS = mod_model.o mod_grid.o configuration.o mod_io.o main_loop.o main.o
+OBJS = mod_model.o mod_grid.o configuration.o mod_IO.o main_loop.o main.o
 PROG = lorenz
 
 all: $(PROG)
